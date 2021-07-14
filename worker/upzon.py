@@ -59,7 +59,7 @@ for urls in xml_urls:
     h6 = soup.find_all('h6')
     h6py = len(h6)
     mycursor = mydb.cursor()
-    sql = "INSERT INTO analiysis (analiysis_url,analiysis_title,analiysis_canonical,analiysis_h1,analiysis_h2,analiysis_h3,analiysis_h4,analiysis_h5,analiysis_h6,analiysis_robots) VALUES (%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    sql = "INSERT INTO analiysis (analiysis_url,analiysis_title,analiysis_canonical,analiysis_h1,analiysis_h2,analiysis_h3,analiysis_h4,analiysis_h5,analiysis_h6,analiysis_robots,analiysis_mostwords) VALUES (%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s)"
     val = (urls, title, canonical, h1py, h2py, h3py, h4py, h5py, h6py,rbparse,mwordsjson)
     mycursor.execute(sql, val)
     mydb.commit()
