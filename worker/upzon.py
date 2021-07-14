@@ -20,11 +20,14 @@ URL = The url we want to be crawled.
 """ 
 Sitemap URL
 """
-url = 'https://upzerk.com/sitemap.xml'
+url = 'https://siteurl.com/sitemap.xml'
 request = requests.get(url)
 content = request.content
 soup = BeautifulSoup(content, 'lxml')
-robots = 'https://upzerk.com/robots.txt'
+""" 
+ROBOTS.TXT URL
+"""
+robots = 'https://siteurl.com/robots.txt'
 rbts = requests.get(robots)
 rbts.text
 rbparse = BeautifulSoup(rbts.content, 'html.parser').get_text()
