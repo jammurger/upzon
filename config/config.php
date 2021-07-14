@@ -1,4 +1,5 @@
 <?php
+include 'function.php';
 try {
      $db = new PDO("mysql:host=localhost;dbname=upzon;charset=utf8", "root", "passwordifyouhave");
 } catch ( PDOException $e ){
