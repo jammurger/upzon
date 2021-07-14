@@ -48,6 +48,7 @@
         </tr>
       <?php } ?>
     </table>
+     <p>For more<a href="https://github.com/upzerk/upzon"> upzerk github </a>& <a href="https://upzerk.com/"> upzerk website.</a></p>
   </section>
 </body>
 </html>
