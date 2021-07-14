@@ -10,9 +10,9 @@ Requirements
 *Json
 
 Places to edit:
-*upzon.py DB Connection Section
-*config/config.php DB Connection for Interface
 * ROBOTS.TXT URL on upzon.py
 * Sitemap URL on upzon.py
+* upzon.py DB Connection Section
+* config/config.php DB Connection for Interface
 
 [Visit upzerk](https://upzerk.com)
