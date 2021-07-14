@@ -15,9 +15,6 @@ mydb = mysql.connector.connect(
     database="upzon"
 )
 """ 
-URL = The url we want to be crawled.
-"""
-""" 
 Sitemap URL
 """
 url = 'https://siteurl.com/sitemap.xml'
@@ -31,8 +28,6 @@ robots = 'https://siteurl.com/robots.txt'
 rbts = requests.get(robots)
 rbts.text
 rbparse = BeautifulSoup(rbts.content, 'html.parser').get_text()
-
-
 locs = soup.find_all("loc")
 xml_urls = []
 ucount = 0
@@ -47,6 +42,10 @@ for urls in xml_urls:
         title = titlepy.get_text()
     canonpy = soup.find('link', {'rel': 'canonical'})
     canonical = canonpy['href']
+    text = (''.join(s.findAll(text=True))for s in soup.findAll('p'))
+    c = Counter((x.rstrip(punctuation).lower() for y in text for x in y.split()))
+    mwords = c.most_common() 
+    mwordsjson = json.dumps(mwords)
     h1 = soup.find_all('h1')
     h1py = len(h1)
     h2 = soup.find_all('h2')
@@ -60,8 +59,8 @@ for urls in xml_urls:
     h6 = soup.find_all('h6')
     h6py = len(h6)
     mycursor = mydb.cursor()
-    sql = "INSERT INTO analiysis (analiysis_url,analiysis_title,analiysis_canonical,analiysis_h1,analiysis_h2,analiysis_h3,analiysis_h4,analiysis_h5,analiysis_h6,analiysis_robots) VALUES (%s,%s, %s,%s,%s,%s,%s,%s,%s,%s)"
-    val = (urls, title, canonical, h1py, h2py, h3py, h4py, h5py, h6py,rbparse)
+    sql = "INSERT INTO analiysis (analiysis_url,analiysis_title,analiysis_canonical,analiysis_h1,analiysis_h2,analiysis_h3,analiysis_h4,analiysis_h5,analiysis_h6,analiysis_robots) VALUES (%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    val = (urls, title, canonical, h1py, h2py, h3py, h4py, h5py, h6py,rbparse,mwordsjson)
     mycursor.execute(sql, val)
     mydb.commit()
     ucount += 1
