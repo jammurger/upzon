@@ -2,13 +2,11 @@
 include 'config/config.php';
 $reportpage = $db->prepare("SELECT * FROM analiysis where analiysis_id=:id");
 $reportpage->execute(array(
-    'id' => $_GET['analiysis_id']
-));
+    'id' => $_GET['analiysis_id']));
 $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +14,6 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
     <?php echo  csjs(); ?>
     <title><?php echo $showreport['analiysis_title'] ?> | Report</title>
 </head>
-
 <body>
     <section class="container">
         <div class="row">
@@ -51,6 +48,11 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
                     <li class="list-group-item">We Found <strong><?php echo $showreport['analiysis_h5'] ?></strong> H5 Tag.</li>
                     <li class="list-group-item">We Found <strong><?php echo $showreport['analiysis_h6'] ?></strong> H6 Tag.</li>
                 </ul>
+                <div class="card">
+                    <div class="card-body">
+                        <?php echo  tagcleaner($showreport['analiysis_mostwords'])  ?>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
