@@ -50,6 +50,7 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
                 </ul>
                 <div class="card">
                     <div class="card-body">
+                        <h6>Most Used Words</h6>
                         <?php echo  tagcleaner($showreport['analiysis_mostwords'])  ?>
                     </div>
                 </div>
