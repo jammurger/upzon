@@ -10,11 +10,11 @@ from collections import Counter
 from string import punctuation
 
 from requests.api import request
-
+""" Your DB """
 mydb = mysql.connector.connect(host="localhost",user="root",password="",database="upzon")   
 
-url = 'https://www.upzerk.com/sitemap.xml'
-robotsurl = 'https://www.upzerk.com/robots.txt'
+url = 'https://www.url.com/sitemap.xml'
+robotsurl = 'https://www.url.com/robots.txt'
 """ """
 robotrequest = requests.get(robotsurl)
 robotrequest.text
@@ -100,4 +100,3 @@ for websiteurls in xml_urls:
     mycursor.execute(sql, val)
     mydb.commit()
     print(mycursor.rowcount, "record inserted.")
-    
