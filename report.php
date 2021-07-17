@@ -2,7 +2,8 @@
 include 'config/config.php';
 $reportpage = $db->prepare("SELECT * FROM analiysis where analiysis_id=:id");
 $reportpage->execute(array(
-    'id' => $_GET['analiysis_id']));
+    'id' => $_GET['analiysis_id']
+));
 $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -40,6 +41,7 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-7">
                 <ul class="list-group">
                     <li class="list-group-item">Page Title : <?php echo $showreport['analiysis_title'] ?></li>
+                    <li class="list-group-item">Page URL : <?php echo $showreport['analiysis_url'] ?></li>
                     <li class="list-group-item">Canonical URL : <?php echo $showreport['analiysis_canonical'] ?></li>
                     <li class="list-group-item">We Found <strong><?php echo $showreport['analiysis_h1'] ?></strong> H1 Tag.</li>
                     <li class="list-group-item">We Found <strong><?php echo $showreport['analiysis_h2'] ?></strong> H2 Tag.</li>
@@ -54,9 +56,23 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
                         <?php echo  tagcleaner($showreport['analiysis_mostwords'])  ?>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Images</h6>                         
+                        <?php  echo $showreport['analiysis_images']; ?>                                                
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Image Alt Tags</h6>
+                        <?php                  
+                  $text = AltTextAnalyzer($showreport['analiysis_images'],$showreport['analiysis_imagesalt']);
+                  echo $text["items"]."<p>".$text["counter"]." Image have missed alt tags.</p>";
+                          ?>
+                    </div>
+                </div>  
             </div>
         </div>
     </section>
 </body>
-
 </html>
