@@ -8,7 +8,6 @@ from urllib.parse import urlparse
 import mysql.connector
 from collections import Counter
 from string import punctuation
-import numpy
 
 from requests.api import request
 
