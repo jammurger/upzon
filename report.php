@@ -8,6 +8,7 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +16,7 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
     <?php echo  csjs(); ?>
     <title><?php echo $showreport['analiysis_title'] ?> | Report</title>
 </head>
+
 <body>
     <section class="container">
         <div class="row">
@@ -58,19 +60,27 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h6>Images</h6>                         
-                        <?php  echo $showreport['analiysis_images']; ?>                                                
+                        <h6>Images</h6>
+                        <?php echo $showreport['analiysis_images']; ?>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
                         <h6>Image Alt Tags</h6>
-                        <?php                  
-                  $text = AltTextAnalyzer($showreport['analiysis_images'],$showreport['analiysis_imagesalt']);
-                  echo $text["items"]."<p>".$text["counter"]." Image have missed alt tags.</p>";
-                          ?>
+                        <?php
+                        $text = AltTextAnalyzer($showreport['analiysis_images'], $showreport['analiysis_imagesalt']);
+                        echo $text["items"] . "<p>" . $text["counter"] . " Image have missed alt tags.</p>";
+                        ?>
                     </div>
-                </div>  
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Page URLs</h6>
+                        <?php
+                        echo  tagcleaner($showreport['analiysis_urls']);
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
