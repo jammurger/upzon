@@ -35,6 +35,12 @@ for websiteurls in xml_urls:
     for titles in titlesource.find_all('title'):
         title = titles.get_text()
     """ """ 
+    hrefrequest = requests.get(websiteurls)
+    hrefrequest.text
+    hrefsource = BeautifulSoup(hrefrequest.text, 'html.parser')
+    links = [ x.get('href') for x in hrefsource.findAll('a') ]
+    link = json.dumps(links)
+    """ """ 
     canonicalrequest = requests.get(websiteurls)
     canonicalrequest.text
     canonicalsource = BeautifulSoup(canonicalrequest.text, 'html.parser')
@@ -95,8 +101,8 @@ for websiteurls in xml_urls:
     h6 = len(h6finder)
     """ """
     mycursor = mydb.cursor()
-    sql = "INSERT INTO analiysis (analiysis_url,analiysis_title,analiysis_canonical,analiysis_h1,analiysis_h2,analiysis_h3,analiysis_h4,analiysis_h5,analiysis_h6,analiysis_robots,analiysis_mostwords,analiysis_images,analiysis_imagesalt) VALUES (%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    val  =(websiteurls,title,canonical,h1,h2,h3,h4,h5,h6,robotsource,words,image,alt)
+    sql = "INSERT INTO analiysis (analiysis_url,analiysis_title,analiysis_canonical,analiysis_h1,analiysis_h2,analiysis_h3,analiysis_h4,analiysis_h5,analiysis_h6,analiysis_robots,analiysis_mostwords,analiysis_images,analiysis_imagesalt,analiysis_urls) VALUES (%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    val  =(websiteurls,title,canonical,h1,h2,h3,h4,h5,h6,robotsource,words,image,alt,link)
     mycursor.execute(sql, val)
     mydb.commit()
     print(mycursor.rowcount, "record inserted.")
