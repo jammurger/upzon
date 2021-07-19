@@ -18,14 +18,19 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+    <section class="container pt-2 pb-2">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a href="index.php" class="nav-link ">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page">Report</a>
+            </li>
+        </ul>
+    </section>
     <section class="container">
         <div class="row">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Report</li>
-                </ol>
-            </nav>
+
             <div class="col-md-3">
                 <div class="card m-1" style="width: 18rem;">
                     <div class="card-body">
@@ -85,4 +90,5 @@ $showreport = $reportpage->fetch(PDO::FETCH_ASSOC);
         </div>
     </section>
 </body>
+
 </html>
