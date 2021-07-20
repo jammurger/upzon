@@ -21,15 +21,15 @@ class seo_crawler:
 
         # Robots.txt
         self.robotsurl = 'https://www.url.com/robots.txt'
-        self.robotsource = BeautifulSoup(requests.get(robotsurl).content, 'html.parser').get_text()
+        self.robotsource = BeautifulSoup(requests.get(self.robotsurl).content, 'html.parser').get_text()
 
         # Sitemap.xml
         self.url = 'https://www.url.com/sitemap.xml'
-        self.sitemapsoup = BeautifulSoup(requests.get(url).content, 'lxml')
-        self.sitemapurls = sitemapsoup.find_all("loc")
+        self.sitemapsoup = BeautifulSoup(requests.get(self.url).content, 'lxml')
+        self.sitemapurls = self.sitemapsoup.find_all("loc")
 
         # XML urls
-        self.xml_urls = [sitemapurl.text for sitemapurl in sitemapurls]
+        self.xml_urls = [sitemapurl.text for sitemapurl in self.sitemapurls]
     
     def start(self):
 
@@ -54,7 +54,7 @@ class seo_crawler:
     
     
     def title(self, source):
-        for titles in titlesource.find_all('title'):
+        for titles in source.find_all('title'):
             return titles.get_text()        
 
     def links(self, source):
@@ -107,7 +107,7 @@ class seo_crawler:
     def h3(self, source):
         return len(source.find_all('h3'))      
     
-     def h4(self, source):
+    def h4(self, source):
         return len(source.find_all('h4'))     
     
     def h5(self, source):
@@ -121,10 +121,9 @@ class seo_crawler:
         sql = "INSERT INTO analiysis (analiysis_url,analiysis_title,analiysis_canonical,analiysis_h1,analiysis_h2,analiysis_h3,analiysis_h4,analiysis_h5,analiysis_h6,analiysis_robots,analiysis_mostwords,analiysis_images,analiysis_imagesalt,analiysis_urls) VALUES (%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         val  =(websiteurls,title,canonical,h1,h2,h3,h4,h5,h6,robotsource,words,image,alt,link)
         mycursor.execute(sql, val)
-        mydb.commit()
+        self.mydb.commit()
         print(mycursor.rowcount, "record inserted.")
 
 
 the_seo_crawler = seo_crawler()        
 the_seo_crawler.start()
-        
